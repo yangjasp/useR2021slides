@@ -1,0 +1,152 @@
+---
+title: "Efficient multiwave sampling with the R package `optimall`"
+author: "Jasper Yang yangjasp@grinnell.edu"
+institute: "University of Pennsylvania"
+date: "July 6, 2021"
+output:
+  xaringan::moon_reader:
+    css: ["useR","useR-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+    fig_caption: false
+---
+exclude: TRUE
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+## Load packages
+library(optimall)
+library(datasets)
+```
+
+???
+
+Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
+
+---
+
+## The R package `optimall`
+
+* R has great tools for the *analysis* of complex survey data (`survey` package), but less for the *design*.
+
+--
+
+* **optimall** is an R package for the survey design process of stratified sampling surveys. It is particularly useful for multi-phase and multi-wave designs.
+
+--
+
+* Objective: Streamline the design and implementation process of stratified survey sampling in R.
+
+    * Automate basic steps including defining strata and selecting samples.
+
+    * Simplify steps for optimum sample allocation with Neyman or Wright algorithms.
+
+    * Reduce potential for error and enhance reproducibility. 
+    
+    * Provide a structure for organization of multi-phase and multi-wave surveys.
+
+---
+## Installing the package
+
+```{r, eval = F}
+devtools::install_github("yangjasp/optimall")
+```
+
+* Will be submitted to CRAN soon.
+
+---
+## Notable functions in **optimall**: The basics
+
+* `split_strata()` and `merge_strata()`:
+
+    * Create sampling strata based on values or quantiles of auxiliary variables.
+--
+
+* `optimum_allocation()`
+
+    * Determine the optimum allocation of samples to minimize the variance of a sample mean.
+    
+    * Implement Wright or Neyman allocations.
+    
+--
+
+* `sample_strata()`
+
+    * Randomly select specific samples according to sampling design specified manually or by `optimum_allocation`. 
+
+---
+
+## Notable functions in **optimall**: Shiny app
+
+* `optimall_shiny()`
+
+    * Loads an app for interactively adjusting strata cut points.
+    
+    * Reactively observe effects on stratum size and allocation.
+
+```{r figure1, echo=FALSE, fig.cap="Image of optimall shiny app inputs. Options to select column names, split  type, split location, confirm the split", fig.align = "center", include = FALSE, out.width = '85%'}
+knitr::include_graphics("/Users/jasper/Downloads/figure3.png")
+```
+---
+## Optimall shiny app
+
+```{r figure1a, echo=FALSE, fig.cap="Image of optimall shiny app inputs. Options to select column name", fig.align = "center", out.width = '95%'}
+knitr::include_graphics("/Users/jasper/Desktop/SummerWork2020/Practiceproj/optimall/inst/shiny-app/optimall_shiny/Screenshots/Screenshot1.png")
+```
+---
+## Notable functions in **optimall**: Multi-wave sampling
+    
+* `allocate_wave()`:
+
+    * Apply optimum allocation to a multi-wave survey.
+    
+    * Determine optimum allocation for a sampling wave taking into account sampling of previous waves.
+    
+    * Adjusts for oversampling. Sometimes the true optimum allocation is not possible so we must approximate.
+---
+## Organizing multi-wave surveys
+
+* Multiwave object
+
+    * A single object that holds all of the survey information for every phase and wave of a study including metadata, samples, sampled data, designs.
+
+```{r figure2, echo=FALSE, fig.cap="Image of Multiwave Object Organization. Boxes connected by arrows show how phase 1 contains data and metadata. Phase 2 contains multiple waves, each with samples, sampled_data, design, data, metadata.", fig.align = "center", out.width = '85%'}
+knitr::include_graphics("/Users/jasper/Downloads/figure6.png")
+```
+    
+
+---
+## Summary
+* The **optimall**  R package is a new tool for streamlining the design and implementation process of stratified survey sampling in R. It is designed to be useful for surveys ranging from simple to complex.
+
+* To learn more:
+
+    * Github page, package vignettes: https://github.com/yangjasp/optimall
+
+    * Paper pre-print: https://arxiv.org/abs/2106.09494
+    
+* Contact me at yangjasp@grinnell.edu.
+
+---
+
+## Acknowledgements
+
+I would like to thank my co-authors Bryan Shepherd, Thomas Lumley, and Pamela Shaw for their guidance and contributions to this project, as well as Gustavo Amorim for providing useful feedback. 
+
+This work was supported in part by the U.S. National Institutes of Health (NIH) grant R01-AI131771 and Patient Centered Outcomes Research Institute (PCORI) Award R-1609- 36207. 
+
+Thank you all for listening!
+
+---
+## References
+
+Lumley T (2010). Complex Surveys: A Guide to Analysis Using R. John Wiley and Sons.
+
+Neyman J (1934). “On the Two Different Aspects of the Representative Method: the Method of Stratified Sampling and the Method of Purposive Selection.”Journal of the Royal Statistical Society,97(4), 558–625. doi:https://doi.org/10.2307/2342192.
+
+Wright T (2012). “The Equivalence of Neyman Optimum Allocation for Sampling and Equal Proportions for Apportioning the US House of Representatives.” The American Statistician, 66(4), 217–224. doi:https://doi.org/10.1080/00031305.2012.733679.

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Efficient multiwave sampling with the R package optimall</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jasper Yang yangjasp@grinnell.edu" />
+    <meta name="date" content="2021-07-06" />
+    <link href="libs/remark-css/useR.css" rel="stylesheet" />
+    <link href="libs/remark-css/useR-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Efficient multiwave sampling with the R package <code>optimall</code>
+### Jasper Yang <a href="mailto:yangjasp@grinnell.edu" class="email">yangjasp@grinnell.edu</a>
+### University of Pennsylvania
+### July 6, 2021
+
+---
+
+exclude: TRUE
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
+
+
+
+???
+
+Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
+
+---
+
+## The R package `optimall`
+
+* R has great tools for the *analysis* of complex survey data (`survey` package), but less for the *design*.
+
+--
+
+* **optimall** is an R package for the survey design process of stratified sampling surveys. It is particularly useful for multi-phase and multi-wave designs.
+
+--
+
+* Objective: Streamline the design and implementation process of stratified survey sampling in R.
+
+    * Automate basic steps including defining strata and selecting samples.
+
+    * Simplify steps for optimum sample allocation with Neyman or Wright algorithms.
+
+    * Reduce potential for error and enhance reproducibility. 
+    
+    * Provide a structure for organization of multi-phase and multi-wave surveys.
+
+---
+## Installing the package
+
+
+```r
+devtools::install_github("yangjasp/optimall")
+```
+
+* Will be submitted to CRAN soon.
+
+---
+## Notable functions in **optimall**: The basics
+
+* `split_strata()` and `merge_strata()`:
+
+    * Create sampling strata based on values or quantiles of auxiliary variables.
+--
+
+* `optimum_allocation()`
+
+    * Determine the optimum allocation of samples to minimize the variance of a sample mean.
+    
+    * Implement Wright or Neyman allocations.
+    
+--
+
+* `sample_strata()`
+
+    * Randomly select specific samples according to sampling design specified manually or by `optimum_allocation`. 
+
+---
+
+## Notable functions in **optimall**: Shiny app
+
+* `optimall_shiny()`
+
+    * Loads an app for interactively adjusting strata cut points.
+    
+    * Reactively observe effects on stratum size and allocation.
+
+
+---
+## Optimall shiny app
+
+&lt;img src="/Users/jasper/Desktop/SummerWork2020/Practiceproj/optimall/inst/shiny-app/optimall_shiny/Screenshots/Screenshot1.png" title="Image of optimall shiny app inputs. Options to select column name" alt="Image of optimall shiny app inputs. Options to select column name" width="95%" style="display: block; margin: auto;" /&gt;
+---
+## Notable functions in **optimall**: Multi-wave sampling
+    
+* `allocate_wave()`:
+
+    * Apply optimum allocation to a multi-wave survey.
+    
+    * Determine optimum allocation for a sampling wave taking into account sampling of previous waves.
+    
+    * Adjusts for oversampling. Sometimes the true optimum allocation is not possible so we must approximate.
+---
+## Organizing multi-wave surveys
+
+* Multiwave object
+
+    * A single object that holds all of the survey information for every phase and wave of a study including metadata, samples, sampled data, designs.
+
+&lt;img src="/Users/jasper/Downloads/figure6.png" title="Image of Multiwave Object Organization. Boxes connected by arrows show how phase 1 contains data and metadata. Phase 2 contains multiple waves, each with samples, sampled_data, design, data, metadata." alt="Image of Multiwave Object Organization. Boxes connected by arrows show how phase 1 contains data and metadata. Phase 2 contains multiple waves, each with samples, sampled_data, design, data, metadata." width="85%" style="display: block; margin: auto;" /&gt;
+    
+
+---
+## Summary
+* The **optimall**  R package is a new tool for streamlining the design and implementation process of stratified survey sampling in R. It is designed to be useful for surveys ranging from simple to complex.
+
+* To learn more:
+
+    * Github page, package vignettes: https://github.com/yangjasp/optimall
+
+    * Paper pre-print: https://arxiv.org/abs/2106.09494
+    
+* Contact me at yangjasp@grinnell.edu.
+
+---
+
+## Acknowledgements
+
+I would like to thank my co-authors Bryan Shepherd, Thomas Lumley, and Pamela Shaw for their guidance and contributions to this project, as well as Gustavo Amorim for providing useful feedback. 
+
+This work was supported in part by the U.S. National Institutes of Health (NIH) grant R01-AI131771 and Patient Centered Outcomes Research Institute (PCORI) Award R-1609- 36207. 
+
+Thank you all for listening!
+
+---
+## References
+
+Lumley T (2010). Complex Surveys: A Guide to Analysis Using R. John Wiley and Sons.
+
+Neyman J (1934). “On the Two Different Aspects of the Representative Method: the Method of Stratified Sampling and the Method of Purposive Selection.”Journal of the Royal Statistical Society,97(4), 558–625. doi:https://doi.org/10.2307/2342192.
+
+Wright T (2012). “The Equivalence of Neyman Optimum Allocation for Sampling and Equal Proportions for Apportioning the US House of Representatives.” The American Statistician, 66(4), 217–224. doi:https://doi.org/10.1080/00031305.2012.733679.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
