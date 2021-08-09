@@ -90,13 +90,13 @@ devtools::install_github("yangjasp/optimall")
     * Reactively observe effects on stratum size and allocation.
 
 ```{r figure1, echo=FALSE, fig.cap="Image of optimall shiny app inputs. Options to select column names, split  type, split location, confirm the split", fig.align = "center", include = FALSE, out.width = '85%'}
-knitr::include_graphics("/Users/jasper/Downloads/figure3.png")
+knitr::include_graphics("files/figure3.png")
 ```
 ---
 ## Optimall shiny app
 
 ```{r figure1a, echo=FALSE, fig.cap="Image of optimall shiny app inputs. Options to select column name", fig.align = "center", out.width = '95%'}
-knitr::include_graphics("/Users/jasper/Desktop/SummerWork2020/Practiceproj/optimall/inst/shiny-app/optimall_shiny/Screenshots/Screenshot1.png")
+knitr::include_graphics("files/Screenshot1.png")
 ```
 ---
 ## Notable functions in **optimall**: Multi-wave sampling
@@ -116,7 +116,7 @@ knitr::include_graphics("/Users/jasper/Desktop/SummerWork2020/Practiceproj/optim
     * A single object that holds all of the survey information for every phase and wave of a study including metadata, samples, sampled data, designs.
 
 ```{r figure2, echo=FALSE, fig.cap="Image of Multiwave Object Organization. Boxes connected by arrows show how phase 1 contains data and metadata. Phase 2 contains multiple waves, each with samples, sampled_data, design, data, metadata.", fig.align = "center", out.width = '85%'}
-knitr::include_graphics("/Users/jasper/Downloads/figure6.png")
+knitr::include_graphics("files/figure6.png")
 ```
     
 
